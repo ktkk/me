@@ -1,6 +1,6 @@
-scripts/out
-styles/out
+scripts/out/
+styles/out/
 
-node-modules
+node-modules/
 package-lock.json
 package.json
