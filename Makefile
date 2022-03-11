@@ -1,25 +1,35 @@
-SASS=sass
+SASSC=sass
 TSC=tsc
+CC=clang
+
+CFLAGS=--target=wasm32 -emit-llvm -S -O3 -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,-lto-all
 
 SCRIPT_DIR=scripts
 STYLES_DIR=styles
+WASM_DIR=wasm
 
 SCRIPT_OUT_DIR=$(SCRIPT_DIR)/out
 STYLES_OUT_DIR=$(STYLES_DIR)/out
+WASM_OUT_DIR=$(WASM_DIR)/out
 
 SCRIPT_SRCS=index.ts
 STYLES_SRCS=style.scss
+WASM_SRCS=add.cpp
 
 SCRIPT_OUTPUT=$(SCRIPT_SRCS:%.ts=%.js)
 STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
+WASM_OUTPUT=$(WASM_SRCS:%.cpp=%.wasm)
 
-all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT)
+all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_DIR)/$(SCRIPT_SRCS)
 	$(TSC) $< --out $@
 
 $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
-	$(SASS) $< $@
+	$(SASSC) $< $@
+
+$(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_DIR)/$(WASM_SRCS)
+	$(CC) $(CFLAGS) $< -o $@
 
 run: all
 	./run.py
