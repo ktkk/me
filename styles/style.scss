@@ -1,0 +1,18 @@
+@import "mixins";
+
+body {
+	background-color: black;
+}
+
+.window {
+	@include center(both);
+
+	cursor: move;
+	position: absolute;
+	z-index: 10;
+
+	width: 100px;
+	height: 100px;
+
+	background-color: red;
+}

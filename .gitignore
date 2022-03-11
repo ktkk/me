@@ -1,0 +1,6 @@
+scripts/out
+styles/out
+
+node-modules
+package-lock.json
+package.json
