@@ -29,10 +29,11 @@ $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 	$(SASSC) $< $@
 
 $(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_DIR)/$(WASM_SRCS)
+	mkdir -p $(WASM_OUT_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
 run: all
 	./run.py
 
 clean:
-	rm -rf $(SCRIPT_OUT_DIR) $(STYLES_OUT_DIR)
+	rm -rf $(SCRIPT_OUT_DIR) $(STYLES_OUT_DIR) $(WASM_OUT_DIR)
