@@ -1,8 +1,16 @@
 SASSC=sass
 TSC=tsc
 CC=clang
+WASM2WAT=wasm2wat
 
-CFLAGS=--target=wasm32 -emit-llvm -S -O3 -flto -nostdlib -Wl,--no-entry -Wl,--export-all -Wl,-lto-all
+CFLAGS=--target=wasm32 \
+	   -O3 \
+	   -flto \
+	   -nostdlib \
+	   -Wl,--no-entry \
+	   -Wl,--export-all \
+	   -Wl,--lto-O3
+TSCFLAGS=--target esnext
 
 SCRIPT_DIR=scripts
 STYLES_DIR=styles
@@ -19,11 +27,12 @@ WASM_SRCS=add.cpp
 SCRIPT_OUTPUT=$(SCRIPT_SRCS:%.ts=%.js)
 STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
 WASM_OUTPUT=$(WASM_SRCS:%.cpp=%.wasm)
+HUMAN_READABLE_WASM_OUTPUT=$(WASM_OUTPUT:%.wasm=%.wasm_text)
 
 all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_DIR)/$(SCRIPT_SRCS)
-	$(TSC) $< --out $@
+	$(TSC) $(TSCFLAGS) $< --out $@
 
 $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 	$(SASSC) $< $@
