@@ -5,7 +5,8 @@ RUN apk add \
 	clang \
 	make \
 	python3 \
-	npm
+	npm \
+	wabt
 
 RUN npm install -g \
 	sass \

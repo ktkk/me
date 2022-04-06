@@ -32,8 +32,13 @@ $(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_DIR)/$(WASM_SRCS)
 	mkdir -p $(WASM_OUT_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
+.PHONY: run clean
+
 run: all
 	./run.py
+
+human-readable-wasm: $(WASM_OUT_DIR)/$(WASM_OUTPUT)
+	$(WASM2WAT) $< -o $(WASM_OUT_DIR)/$(HUMAN_READABLE_WASM_OUTPUT)
 
 clean:
 	rm -rf $(SCRIPT_OUT_DIR) $(STYLES_OUT_DIR) $(WASM_OUT_DIR)
