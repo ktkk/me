@@ -65,3 +65,15 @@ function drag_element(elem: HTMLElement) {
 		document.onmousemove = null;
 	}
 }
+
+async function init() {
+	const { instance } = await WebAssembly.instantiateStreaming(
+		fetch("wasm/out/add.wasm")
+	);
+
+	const add = instance.exports.add as CallableFunction;
+
+	console.log(add(4, 1));
+}
+
+init();
