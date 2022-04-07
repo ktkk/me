@@ -15,7 +15,7 @@ def run_local_server(port):
         httpd.serve_forever()
 
 def open_browser(address):
-    browser = f"{shutil.which("firefox")} %s"
+    browser = f"{shutil.which('firefox')} %s"
     webbrowser.get(browser).open_new_tab(address)
 
 port = 8000
