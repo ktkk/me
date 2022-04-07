@@ -41,7 +41,7 @@ $(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_DIR)/$(WASM_SRCS)
 	mkdir -p $(WASM_OUT_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: run clean
+.PHONY: run clean human-readable-wasm
 
 run: all
 	./run.py
