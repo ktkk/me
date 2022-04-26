@@ -1,12 +1,12 @@
-@import "mixins";
-// TODO: Use "use" instead of "import"
+@use "mixins" as m;
+@use "colors" as c;
 
 body {
-	background-color: black;
+	background-color: c.$background-color;
 }
 
 .window {
-	@include center(both);
+	@include m.center(both);
 
 	cursor: move;
 	position: absolute;
@@ -15,5 +15,11 @@ body {
 	width: 100px;
 	height: 100px;
 
-	background-color: red;
+	background-color: c.$window-background-color;
+
+	border: 1px solid c.$window-border-color;
+}
+
+.program-drawer {
+	
 }
