@@ -13,6 +13,8 @@ Second attempt at a personal website, this time using every technology known to 
 
 - Python (currently)
 - Go (future plans)
+- Make
+- Docker
 
 ## TODO(ktkk):
 
