@@ -37,7 +37,7 @@ HUMAN_READABLE_WASM_OUTPUT=$(WASM_OUTPUT:%.wasm=%.wasm_text)
 SERVER_OUTPUT=server
 export SERVER_OUTPUT
 
-all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) $(WASM_OUT_DIR)/$(WASM_OUTPUT) server
+all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) $(WASM_OUT_DIR)/$(WASM_OUTPUT) $(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_DIR)/$(SCRIPT_SRCS)
 	$(TSC) $(TSCFLAGS) $< --out $@
@@ -49,19 +49,17 @@ $(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_DIR)/$(WASM_SRCS)
 	mkdir -p $(WASM_OUT_DIR)
 	$(CC) $(CFLAGS) $< -o $@
 
-server: $(SERVER_DIR)/$(GO_SRCS)
-	@# TODO: Find out why this doesn't track
-	$(MAKE) -C $(SERVER_DIR)
+$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
+	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
 
 .PHONY: run clean human-readable-wasm
 
 run: all
-	@# TODO: Make this use variables
-	$(SERVER_DIR)/out/server
+	$(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
 	#./run.py
 
 human-readable-wasm: $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 	$(WASM2WAT) $< -o $(WASM_OUT_DIR)/$(HUMAN_READABLE_WASM_OUTPUT)
 
 clean:
-	rm -rf $(SCRIPT_OUT_DIR) $(STYLES_OUT_DIR) $(WASM_OUT_DIR)
+	rm -rf $(SCRIPT_OUT_DIR) $(STYLES_OUT_DIR) $(WASM_OUT_DIR) $(SERVER_OUT_DIR)
