@@ -1,30 +1,9 @@
-//import $ from "jquery";
+import * as wasm from "./wasm.js"
 
-//const window_wrapper: HTMLElement = document.querySelector(".window")!;
-//
-//function onDrag(e: MouseEvent) {
-//	var get_style: CSSStyleDeclaration = window.getComputedStyle(window_wrapper);
-//
-//	var left: number = parseInt(get_style.left);
-//	var top: number = parseInt(get_style.top);
-//
-//	window_wrapper.style.left = `${left + e.movementX}px`;
-//	window_wrapper.style.top = `${top + e.movementY}px`;
-//
-//	e.preventDefault();
-//
-//	console.log(e.movementX, e.movementY);
-//}
-//
-//window_wrapper.addEventListener("mousedown", () => {
-//	window_wrapper.classList.add("active");
-//	window_wrapper.addEventListener("mousemove", onDrag);
-//});
-//
-//document.addEventListener("mouseup", () => {
-//	window_wrapper.classList.remove("active");
-//	window_wrapper.removeEventListener("mousemove", onDrag);
-//});
+await wasm.init();
+
+console.log(wasm.add(1, 2));
+console.log(wasm.sub(2, 1));
 
 drag_element(document.querySelector(".window")!);
 
@@ -65,15 +44,3 @@ function drag_element(elem: HTMLElement) {
 		document.onmousemove = null;
 	}
 }
-
-async function init() {
-	const { instance } = await WebAssembly.instantiateStreaming(
-		fetch("wasm/out/add.wasm")
-	);
-
-	const add = instance.exports.add as CallableFunction;
-
-	console.log(add(4, 1));
-}
-
-init();

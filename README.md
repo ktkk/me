@@ -16,7 +16,7 @@ Second attempt at a personal website, this time using every technology known to 
 - Make
 - Docker
 
-## TODO(ktkk):
+## To Do:
 
 - [ ] Write a Go server
 - [ ] Actually build the website
