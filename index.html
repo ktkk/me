@@ -14,18 +14,62 @@
 
 		<link rel="shortcut icon" href="./assets/favicon.png" type="image/png">
 
+		<link rel="stylesheet" href="./motif-css/css/style.css">
 		<link rel="stylesheet" href="./styles/out/style.css">
 
 	</head>
 
 	<body>
+		<style>
+			body {
+				background: url("./motif-css/bg_dither.png");
+				image-rendering: pixelated;
+			}
 
+			#quit-popup {
+				position: absolute;
+				z-index: 10;
+			}
+
+			#button-section {
+				padding: 15px;
+
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+			}
+
+			#message-section {
+				padding: 15px;
+			}
+		</style>
 		<div class="desktop">
-			<div class="window program-drawer"></div>
+			<div id="quit-popup" class="window">
+				<div class="titlebar">
+					<button width="19px" class="titlebar-menu"></button>
+					<div class="titlebar-title">
+						<p>dialog</p>
+					</div>
+					<button class="titlebar-minimize"></button>
+					<button class="titlebar-maximize"></button>
+				</div>
+				<div class="window-body">
+					<div class="menubar"></div>
+					<div id="message-section" class="window-section">
+						Are you sure you want to quit?
+					</div>
+					<div id="button-section" class="window-section">
+						<button id="cancel-button" style="width: 50px; height: 22px">
+							Cancel
+						</button>
+						<button id="ok-button" style="width: 50px; height: 22px" autofocus>
+							OK
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
-
-		<script src="./scripts/out/index.js" type="module"></script>
-
+		<script defer src="./scripts/out/index.js" type="module"></script>
 	</body>
-
 </html>

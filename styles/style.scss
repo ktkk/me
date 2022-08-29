@@ -5,21 +5,11 @@ body {
 	background-color: c.$background-color;
 }
 
-.window {
+#quit-popup {
 	@include m.center(both);
 
-	cursor: move;
 	position: absolute;
 	z-index: 10;
 
-	width: 100px;
-	height: 100px;
-
-	background-color: c.$window-background-color;
-
-	border: 1px solid c.$window-border-color;
-}
-
-.program-drawer {
-	
+	width: 300px;
 }
