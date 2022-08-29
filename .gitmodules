@@ -1,0 +1,3 @@
+[submodule "motif-css"]
+	path = motif-css
+	url = https://github.com/ktkk/motif-css
