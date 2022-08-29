@@ -1,0 +1,7 @@
+# action.yml
+name: "Build action"
+description: "Build sass, ts and cpp from dockerfile"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"

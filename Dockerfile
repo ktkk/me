@@ -12,10 +12,8 @@ RUN npm install -g \
 	sass \
 	typescript
 
-EXPOSE 8000
-
 WORKDIR personal_website
 
-COPY . .
+COPY entrypoint.sh /entrypoint.sh
 
-CMD ["make", "run"]
+ENTRYPOINT [ "/entrypoint.sh" ]
