@@ -6,7 +6,6 @@ RUN apk add \
 	make \
 	python3 \
 	npm \
-	wabt
 
 RUN npm install -g \
 	sass \
