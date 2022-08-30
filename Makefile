@@ -58,7 +58,7 @@ $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 #$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
 #	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
 
-static-files: index.html
+static-files: index.html motif/css/style.css
 	@mkdir -p $(SITE_DIR)
 	cp $^ $(SITE_DIR)/$^
 
