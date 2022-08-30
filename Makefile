@@ -29,7 +29,7 @@ SCRIPT_OUTPUT=index.js
 STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
 SERVER_OUTPUT=server
 
-all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) static-files #$(WASM_OUT_DIR)/$(WASM_OUTPUT)
+all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) motif static-files #$(WASM_OUT_DIR)/$(WASM_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_SRCS)
 	@mkdir -p $(SITE_DIR)
@@ -50,7 +50,7 @@ static-files: index.html assets/ motif
 	cp index.html $(SITE_DIR)/index.html
 	cp -r assets/ $(SITE_DIR)/assets/
 	@mkdir -p $(SITE_DIR)/styles/motif-css
-	cp -r styles/motif-css/css $(SITE_DIR)/styles/motif-css/css
+	cp -r styles/motif-css/css/ $(SITE_DIR)/styles/motif-css/css/
 
 .PHONY: run clean #human-readable-wasm
 
