@@ -1,23 +1,8 @@
-# personal-website-v2
+# Me
 
-Second attempt at a personal website, this time using every technology known to man.
+Second attempt at a personal website, using [Motif CSS](https://github.com/ktkk/motif-css).
+Mainly using this as a place to mess around with web stuff right now.
 
-## Frontend
+The Grand Plan is to turn this into a resume/personal website akin to a 90's unix desktop.
 
-- HTML (duh)
-- SCSS
-- TypeScript
-- C++ 😏
-
-## Backend
-
-- Python (currently)
-- Go (future plans)
-- Make
-- Docker
-
-## To Do:
-
-- [ ] Write a Go server
-- [ ] Actually build the website
-- [ ] Add more languages
+For reference, check out the awesome websites featured on [simone.computer](https://simone.computer/#/webdesktops).
