@@ -60,7 +60,8 @@ $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 
 static-files: index.html motif-css/css/style.css
 	@mkdir -p $(SITE_DIR)
-	cp $< $(SITE_DIR)/$<
+	cp index.html $(SITE_DIR)/index.html
+	cp -r motif-css/ $(SITE_DIR)/motif-css/
 
 .PHONY: run clean human-readable-wasm
 
