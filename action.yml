@@ -1,6 +1,17 @@
 # action.yml
 name: "Build action"
-description: "Build sass, ts and cpp from dockerfile"
+description: "Build sass and typescript from dockerfile"
+
+
+inputs:
+  source:
+    description: 'Directory where the source files reside.'
+    required: true
+    default: ./
+  destination:
+    description: 'Output directory of the build. Although it can be nested inside the source, it cannot be the same as the source directory.'
+    required: true
+    default: ./_site
 
 runs:
   using: "docker"
