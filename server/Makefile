@@ -1,8 +1,0 @@
-GOC=go
-
-OUT_DIR=$(SERVER_OUT_DIR:$(SERVER_DIR)/%=%)
-
-all: $(OUT_DIR)/$(SERVER_OUTPUT)
-
-$(OUT_DIR)/$(SERVER_OUTPUT): $(GO_SRCS)
-	go build -o $@

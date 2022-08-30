@@ -1,4 +1,4 @@
 scripts/out/
 styles/out/
 wasm/out/
-server/out
+_site/

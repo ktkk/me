@@ -4,44 +4,32 @@ TSC=tsc
 #WASM2WAT=wasm2wat
 
 #CFLAGS=--target=wasm32 \
-#	   -O3 \
-#	   -flto \
-#	   -nostdlib \
-#	   -Wl,--no-entry \
-#	   -Wl,--export-all \
-#	   -Wl,--lto-O3
+#		-O3 \
+#		-flto \
+#		-nostdlib \
+#		-Wl,--no-entry \
+#		-Wl,--export-all \
+#		-Wl,--lto-O3
 TSCFLAGS=--target esnext --removeComments --preserveConstEnums --sourceMap --module esnext
 
 SCRIPT_DIR=scripts
-STYLES_DIR=styles
 #WASM_DIR=wasm
+STYLES_DIR=styles
 SITE_DIR=_site
-SERVER_DIR=server
-export SERVER_DIR
 
 SCRIPT_OUT_DIR=$(SITE_DIR)/$(SCRIPT_DIR)/out
-STYLES_OUT_DIR=$(SITE_DIR)/$(STYLES_DIR)/out
 #WASM_OUT_DIR=$(WASM_DIR)/out
-SERVER_OUT_DIR=$(SERVER_DIR)/out
-#export SERVER_OUT_DIR
+STYLES_OUT_DIR=$(SITE_DIR)/$(STYLES_DIR)/out
 
 SCRIPT_SRCS=$(shell find $(SCRIPT_DIR) -type f -name "*.ts")
-STYLES_SRCS=style.scss
 #WASM_SRCS=$(shell find $(WASM_DIR) -type f -name "*.cpp")
-#GO_SRCS=$(shell find $(SERVER_DIR) -type f -name "*.go" -printf "%P\n")
-#export GO_SRCS
+STYLES_SRCS=style.scss
 
-#SCRIPT_OUTPUT=$(patsubst $(SCRIPT_DIR)/%.ts, $(SCRIPT_OUT_DIR)/%.js, $(SCRIPT_SRCS))
 SCRIPT_OUTPUT=index.js
 STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
-#WASM_OUTPUT=out.wasm
-#HUMAN_READABLE_WASM_OUTPUT=$(WASM_OUTPUT:%.wasm=%.wasm_text)
 SERVER_OUTPUT=server
-#export SERVER_OUTPUT
 
-all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) static-files
-#	\ $(WASM_OUT_DIR)/$(WASM_OUTPUT)
-#	\ $(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
+all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) static-files #$(WASM_OUT_DIR)/$(WASM_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_SRCS)
 	@mkdir -p $(SITE_DIR)
@@ -53,21 +41,21 @@ $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 
 #$(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_SRCS)
 #	mkdir -p $(WASM_OUT_DIR)
-#	$(CC) $(CFLAGS) $^ -o $@
 
-#$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
-#	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
+motif:
+	$(MAKE) -C styles/motif-css
 
-static-files: index.html motif-css/css/style.css
+static-files: index.html assets/ motif
 	@mkdir -p $(SITE_DIR)
 	cp index.html $(SITE_DIR)/index.html
-	cp -r motif-css/ $(SITE_DIR)/motif-css/
+	cp -r assets/ $(SITE_DIR)/assets/
+	@mkdir -p $(SITE_DIR)/styles/motif-css
+	cp -r styles/motif-css/css $(SITE_DIR)/styles/motif-css/css
 
-.PHONY: run clean human-readable-wasm
+.PHONY: run clean #human-readable-wasm
 
 run: all
-	$(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
-	#./run.py
+	./run.py
 
 #human-readable-wasm: $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 #	$(WASM2WAT) $< -o $(WASM_OUT_DIR)/$(HUMAN_READABLE_WASM_OUTPUT)
@@ -75,6 +63,6 @@ run: all
 clean:
 	rm -rf \
 		$(SCRIPT_OUT_DIR) \
-		$(STYLES_OUT_DIR)
-#		$(WASM_OUT_DIR) \
-#		$(SERVER_OUT_DIR)
+		$(STYLES_OUT_DIR) \
+		$(SITE_DIR)
+#		$(WASM_OUT_DIR)
