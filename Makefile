@@ -15,11 +15,12 @@ TSCFLAGS=--target esnext --removeComments --preserveConstEnums --sourceMap --mod
 SCRIPT_DIR=scripts
 STYLES_DIR=styles
 #WASM_DIR=wasm
+SITE_DIR=_site
 SERVER_DIR=server
 export SERVER_DIR
 
-SCRIPT_OUT_DIR=$(SCRIPT_DIR)/out
-STYLES_OUT_DIR=$(STYLES_DIR)/out
+SCRIPT_OUT_DIR=$(SITE_DIR)/$(SCRIPT_DIR)/out
+STYLES_OUT_DIR=$(SITE_DIR)/$(STYLES_DIR)/out
 #WASM_OUT_DIR=$(WASM_DIR)/out
 SERVER_OUT_DIR=$(SERVER_DIR)/out
 #export SERVER_OUT_DIR
@@ -38,14 +39,16 @@ STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
 SERVER_OUTPUT=server
 #export SERVER_OUTPUT
 
-all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT)
+all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) static-files
 #	\ $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 #	\ $(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
 
 $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT): $(SCRIPT_SRCS)
+	@mkdir -p $(SITE_DIR)
 	$(TSC) $(TSCFLAGS) $^ --sourceRoot $(SCRIPT_DIR) --rootDir $(SCRIPT_DIR) --outDir $(SCRIPT_OUT_DIR)
 
 $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
+	@mkdir -p $(SITE_DIR)
 	$(SASSC) $< $@
 
 #$(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_SRCS)
@@ -54,6 +57,10 @@ $(STYLES_OUT_DIR)/$(STYLES_OUTPUT): $(STYLES_DIR)/$(STYLES_SRCS)
 
 #$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
 #	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
+
+static-files: index.html
+	@mkdir -p $(SITE_DIR)
+	cp $^ $(SITE_DIR)/$^
 
 .PHONY: run clean human-readable-wasm
 
@@ -65,8 +72,8 @@ run: all
 #	$(WASM2WAT) $< -o $(WASM_OUT_DIR)/$(HUMAN_READABLE_WASM_OUTPUT)
 
 clean:
-	rm -rf
-		\ $(SCRIPT_OUT_DIR)
-		\ $(STYLES_OUT_DIR)
-#		\ $(WASM_OUT_DIR)
-#		\ $(SERVER_OUT_DIR)
+	rm -rf \
+		$(SCRIPT_OUT_DIR) \
+		$(STYLES_OUT_DIR)
+#		$(WASM_OUT_DIR) \
+#		$(SERVER_OUT_DIR)
