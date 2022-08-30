@@ -22,13 +22,13 @@ SCRIPT_OUT_DIR=$(SCRIPT_DIR)/out
 STYLES_OUT_DIR=$(STYLES_DIR)/out
 WASM_OUT_DIR=$(WASM_DIR)/out
 SERVER_OUT_DIR=$(SERVER_DIR)/out
-export SERVER_OUT_DIR
+#export SERVER_OUT_DIR
 
 SCRIPT_SRCS=$(shell find $(SCRIPT_DIR) -type f -name "*.ts")
 STYLES_SRCS=style.scss
 WASM_SRCS=$(shell find $(WASM_DIR) -type f -name "*.cpp")
-GO_SRCS=$(shell find $(SERVER_DIR) -type f -name "*.go" -printf "%P\n")
-export GO_SRCS
+#GO_SRCS=$(shell find $(SERVER_DIR) -type f -name "*.go" -printf "%P\n")
+#export GO_SRCS
 
 #SCRIPT_OUTPUT=$(patsubst $(SCRIPT_DIR)/%.ts, $(SCRIPT_OUT_DIR)/%.js, $(SCRIPT_SRCS))
 SCRIPT_OUTPUT=index.js
@@ -36,7 +36,7 @@ STYLES_OUTPUT=$(STYLES_SRCS:%.scss=%.css)
 WASM_OUTPUT=out.wasm
 HUMAN_READABLE_WASM_OUTPUT=$(WASM_OUTPUT:%.wasm=%.wasm_text)
 SERVER_OUTPUT=server
-export SERVER_OUTPUT
+#export SERVER_OUTPUT
 
 all: $(SCRIPT_OUT_DIR)/$(SCRIPT_OUTPUT) $(STYLES_OUT_DIR)/$(STYLES_OUTPUT) $(WASM_OUT_DIR)/$(WASM_OUTPUT) $(SERVER_OUT_DIR)/$(SERVER_OUTPUT)
 
@@ -50,8 +50,8 @@ $(WASM_OUT_DIR)/$(WASM_OUTPUT): $(WASM_SRCS)
 	mkdir -p $(WASM_OUT_DIR)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
-	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
+#$(SERVER_OUT_DIR)/$(SERVER_OUTPUT): $(SERVER_DIR)/$(GO_SRCS)
+#	@$(MAKE) -C $(SERVER_DIR) --no-print-directory
 
 .PHONY: run clean human-readable-wasm
 
