@@ -5,10 +5,10 @@
 //console.log(wasm.add(1, 2));
 //console.log(wasm.sub(2, 1));
 
-//drag_element(document.querySelector("#quit-popup")!);
-drag_element(document.querySelector(".titlebar-title")!);
+drag_element(document.querySelector("#quit-popup > .titlebar > .titlebar-title")!);
+drag_element(document.querySelector("#terminal > .titlebar > .titlebar-title")!);
 
-function drag_element(elem: HTMLElement) {
+async function drag_element(elem: HTMLElement) {
 	console.log(elem);
 	var pos1: number = 0, pos2: number = 0, pos3: number = 0, pos4: number = 0;
 
@@ -20,7 +20,8 @@ function drag_element(elem: HTMLElement) {
 		console.log("mouse down");
 		e = e || window.event as MouseEvent;
 
-		e.preventDefault();
+		//e.preventDefault();
+		//e.stopPropagation();
 
 		pos3 = e.clientX;
 		pos4 = e.clientY;
@@ -35,7 +36,8 @@ function drag_element(elem: HTMLElement) {
 		console.log("mouse move");
 		e = e || window.event as MouseEvent;
 
-		e.preventDefault();
+		//e.preventDefault();
+		//e.stopPropagation();
 
 		pos1 = pos3 - e.clientX;
 		pos2 = pos4 - e.clientY;

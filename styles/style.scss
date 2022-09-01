@@ -13,3 +13,13 @@ body {
 
 	width: 300px;
 }
+
+#terminal {
+	@include m.center(both);
+
+	//position: absolute;
+	z-index: 20;
+
+	width: 700px;
+	height: 500px;
+}

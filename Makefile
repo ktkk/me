@@ -55,7 +55,7 @@ static-files: index.html assets/ motif
 .PHONY: run clean #human-readable-wasm
 
 run: all
-	./run.py
+	@cd $(SITE_DIR) && ../run.py
 
 #human-readable-wasm: $(WASM_OUT_DIR)/$(WASM_OUTPUT)
 #	$(WASM2WAT) $< -o $(WASM_OUT_DIR)/$(HUMAN_READABLE_WASM_OUTPUT)

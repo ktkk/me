@@ -5,7 +5,7 @@ import http.server
 import socketserver
 
 def run_local_server():
-    port = 8000
+    port = 8080
     handler = http.server.SimpleHTTPRequestHandler
 
     socketserver.TCPServer.allow_reuse_address = True
