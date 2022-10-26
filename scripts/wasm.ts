@@ -5,7 +5,7 @@ export class Wasm {
 	sub: CallableFunction;
 
 	constructor() {
-		WebAssembly.instantiateStreaming(fetch(`wasm/out/${this.#wasmSource}`)).then((obj) => {
+		WebAssembly.instantiateStreaming(fetch(`wasm/out/${Wasm.#wasmSource}`)).then((obj) => {
 			this.add = obj.instance.exports.add as CallableFunction;
 			this.sub = obj.instance.exports.sub as CallableFunction;
 		});
