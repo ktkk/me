@@ -1,5 +1,5 @@
 export class Wasm {
-	const #wasmSource: string = "out.wasm";
+	static #wasmSource: string = "out.wasm";
 
 	add: CallableFunction;
 	sub: CallableFunction;
