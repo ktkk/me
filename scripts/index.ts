@@ -5,13 +5,23 @@
 //console.log(wasm.add(1, 2));
 //console.log(wasm.sub(2, 1));
 
+type Position = {
+	x: number,
+	y: number,
+};
+
+dragElement(document.querySelector("#quit-popup > .titlebar > .titlebar-title")!);
+dragElement(document.querySelector("#terminal > .titlebar > .titlebar-title")!);
+
 const dragElement = async (elem: HTMLElement) => {
 	console.log(elem);
-	let position = {
-		pos1: number = 0,
-		pos2: number = 0,
-		pos3: number = 0,
-		pos4: number = 0,
+	type PositionUpdate = {
+		oldPosition: Position,
+		newPosition: Position,
+	};
+	let position: PositionUpdate = {
+		oldPosition: { x: 0, y: 0 },
+		newPosition: { x: 0, y: 0 },
 	};
 	
 	elem.onmousedown = function (e: MouseEvent) {
@@ -21,10 +31,12 @@ const dragElement = async (elem: HTMLElement) => {
 		//e.preventDefault();
 		//e.stopPropagation();
 		
-		position.pos3 = e.clientX;
-		position.pos4 = e.clientY;
+		position.oldPosition = {
+			x: e.clientX,
+			y: e.clientY
+		};
 		
-		console.log(`pos3: ${position.pos3}, pos4: ${position.pos4}`);
+		console.log(position.oldPosition);
 		
 		document.onmouseup = function () {
 			console.log("mouse up");
@@ -39,22 +51,22 @@ const dragElement = async (elem: HTMLElement) => {
 			//e.preventDefault();
 			//e.stopPropagation();
 			
-			position.pos1 = position.pos3 - e.clientX;
-			position.pos2 = position.pos4 - e.clientY;
+			position.newPosition = {
+				x: position.oldPosition.x - e.clientX,
+				y: position.oldPosition.y - e.clientY
+			};
+			position.oldPosition = {
+				x: e.clientX,
+				y: e.clientY
+			};
 			
-			position.pos3 = e.clientX;
-			position.pos4 = e.clientY;
+			console.log(position);
+			console.log(`top: ${elem.offsetTop - position.newPosition.y}, left: ${elem.offsetLeft - position.newPosition.x}`);
 			
-			console.log(`pos1: ${position.pos1}, pos2: ${position.pos2}, pos3: ${position.pos3}, pos4: ${position.pos4}`);
-			console.log(`top: ${elem.offsetTop - position.pos2}, left: ${elem.offsetLeft - position.pos1}`);
-			
-			elem.style.top = `${elem.offsetTop - position.pos2}px`;
-			elem.style.left = `${elem.offsetLeft - position.pos1}px`;
+			elem.style.top = `${elem.offsetTop - position.newPosition.y}px`;
+			elem.style.left = `${elem.offsetLeft - position.newPosition.x}px`;
 		};
 	};
 	
 	elem = elem.closest(".window");
-}
-
-dragElement(document.querySelector("#quit-popup > .titlebar > .titlebar-title")!);
-dragElement(document.querySelector("#terminal > .titlebar > .titlebar-title")!);
+};
