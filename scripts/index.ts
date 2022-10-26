@@ -10,9 +10,6 @@ type Position = {
 	y: number,
 };
 
-dragElement(document.querySelector("#quit-popup > .titlebar > .titlebar-title")!);
-dragElement(document.querySelector("#terminal > .titlebar > .titlebar-title")!);
-
 const dragElement = async (elem: HTMLElement) => {
 	console.log(elem);
 	type PositionUpdate = {
@@ -70,3 +67,6 @@ const dragElement = async (elem: HTMLElement) => {
 	
 	elem = elem.closest(".window");
 };
+
+dragElement(document.querySelector("#quit-popup > .titlebar > .titlebar-title")!);
+dragElement(document.querySelector("#terminal > .titlebar > .titlebar-title")!);
