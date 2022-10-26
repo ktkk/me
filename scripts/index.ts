@@ -1,9 +1,8 @@
-//import * as wasm from "./wasm.js"
+import { Wasm } from "./wasm.js"
 
-//await wasm.init();
-
-//console.log(wasm.add(1, 2));
-//console.log(wasm.sub(2, 1));
+let wasm = new Wasm();
+console.log(wasm.add(1, 2));
+console.log(wasm.sub(2, 1));
 
 type Position = {
 	x: number,

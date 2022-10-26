@@ -1,4 +1,4 @@
 extern "C"
-int sub(int a, int b) {
+auto sub(int a, int b) -> int {
 	return a - b;
 }

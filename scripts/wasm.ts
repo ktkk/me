@@ -1,13 +1,13 @@
-const wasm_source: string = "out.wasm";
+export class Wasm {
+	const #wasmSource: string = "out.wasm";
 
-export let add: CallableFunction;
-export let sub: CallableFunction;
+	add: CallableFunction;
+	sub: CallableFunction;
 
-export async function init() {
-	const { instance } = await WebAssembly.instantiateStreaming(
-		fetch(`wasm/out/${wasm_source}`)
-	);
-
-	add = instance.exports.add as CallableFunction;
-	sub = instance.exports.sub as CallableFunction;
+	constructor() {
+		WebAssembly.instantiateStreaming(fetch(`wasm/out/${this.#wasmSource}`)).then((obj) => {
+			this.add = obj.instance.exports.add as CallableFunction;
+			this.sub = obj.instance.exports.sub as CallableFunction;
+		});
+	}
 }
